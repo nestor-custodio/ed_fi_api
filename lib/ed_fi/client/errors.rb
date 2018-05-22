@@ -1,4 +1,6 @@
-class EdFi::Client
+require 'crapi'
+
+class EdFi::Client < Crapi::Client
   class Error < ::StandardError
   end
 

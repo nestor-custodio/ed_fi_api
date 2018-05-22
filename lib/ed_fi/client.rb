@@ -5,44 +5,50 @@ require 'ed_fi/client/auth'
 require 'ed_fi/client/errors'
 require 'ed_fi/client/version'
 
-class EdFi::Client
+class EdFi::Client < Crapi::Client
   PROFILE_CONTENT_TYPE = 'application/vnd.ed-fi.%<resource>s.%<profile>s.%<access>s+json'.freeze
 
-  def initialize(base_uri:, client_id:, client_secret:, profile: nil, insecure: nil)
-    @client = Crapi::Client.new(base_uri, insecure: insecure)
-    @profile = profile
+  def initialize(base_uri, opts = {})
+    required_opts = %i[client_id client_secret]
+    required_opts.each { |opt| raise ArgumentError, "missing keyword: #{opt}" unless opts.key? opt }
 
-    auth_client = @client.new_proxy
+    super(base_uri, opts)
+    @profile = opts[:profile]
+
+    ## Giving the EdFi::Client::Auth instance its own Crapi client lets us do fancy things with the
+    ## API segmenting stuff ...
+    ##
+    auth_client = Crapi::Client.new(base_uri, opts)
     @auth = EdFi::Client::Auth.new(client: auth_client,
-                                   client_id: client_id,
-                                   client_secret: client_secret)
+                                   client_id: opts[:client_id],
+                                   client_secret: opts[:client_secret])
   end
 
   ## CRUD methods ...
 
   def delete(path, headers: {}, query: {})
     headers = auth_header.merge(headers)
-    @client.delete(path, headers: headers, query: query)
+    super(path, headers: headers, query: query)
   end
 
   def get(path, headers: {}, query: {})
     headers = auth_header.merge(headers)
-    @client.get(path, headers: headers, query: query)
+    super(path, headers: headers, query: query)
   end
 
   def patch(path, headers: {}, query: {}, payload: {})
     headers = auth_header.merge(headers)
-    @client.patch(path, headers: headers, query: query, payload: payload)
+    super(path, headers: headers, query: query, payload: payload)
   end
 
   def post(path, headers: {}, query: {}, payload: {})
     headers = auth_header.merge(headers)
-    @client.post(path, headers: headers, query: query, payload: payload)
+    super(path, headers: headers, query: query, payload: payload)
   end
 
   def put(path, headers: {}, query: {}, payload: {})
     headers = auth_header.merge(headers)
-    @client.put(path, headers: headers, query: query, payload: payload)
+    super(path, headers: headers, query: query, payload: payload)
   end
 
   ##
