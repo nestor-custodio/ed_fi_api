@@ -1,6 +1,6 @@
-RSpec.describe EdFiClient do
+RSpec.describe EdFi::Client do
   it 'has a version number' do
-    expect(EdFiClient::VERSION).not_to be nil
+    expect(EdFi::Client::VERSION).not_to be nil
   end
 
   it 'does something useful' do
