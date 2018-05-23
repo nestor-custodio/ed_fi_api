@@ -44,23 +44,33 @@ class EdFi::Client < Crapi::Client
       @response.to_json
     end
 
-    ## rubocop:disable Style/MethodMissing
+    ## rubocop:disable Style/MethodMissing, Metrics/BlockNesting
     def method_missing(name, *args, &block)
+      ## Note references are cached.
+      ## To force a refresh on an already-cached reference,
+      ## the method should be called with a single `true` parameter.
+      ## (i.e. `#school` vs `#school(true)`)
+
       if @response.is_a? Hash
         ## Allow for acceess to response values via dot notation.
         return @response[name] if @response.key? name
 
         ## Allow for simple access to referenced resources.
         if @client.present?
+          @references ||= {}
           reference = @response["#{name}_reference".to_sym].link.href rescue nil
-          return @client.get(reference) if reference.present?
+
+          if reference.present?
+            @references.delete(reference) if args[0] == true
+            return @references[reference] ||= @client.get(reference)
+          end
         end
       end
 
       ## All other unaccounted-for method calls should be delegated to the response Hash/Array.
       @response.send(name, *args, &block)
     end
-    ## rubocop:enable Style/MethodMissing
+    ## rubocop:enable Style/MethodMissing, Metrics/BlockNesting
 
     def respond_to_missing?(name, include_private = false)
       ( \
