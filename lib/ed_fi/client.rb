@@ -29,38 +29,28 @@ class EdFi::Client < Crapi::Client
   ## CRUD methods ...
 
   def delete(path, headers: {}, query: {})
-    headers = auth_header.merge(headers)
-    response = super(path, headers: headers, query: query)
-
-    EdFi::Client::Response.new(response, client: self)
+    (headers, query) = preprocess(headers, query)
+    respond_with super(path, headers: headers, query: query)
   end
 
   def get(path, headers: {}, query: {})
-    headers = auth_header.merge(headers)
-    response = super(path, headers: headers, query: query)
-
-    EdFi::Client::Response.new(response, client: self)
+    (headers, query) = preprocess(headers, query)
+    respond_with super(path, headers: headers, query: query)
   end
 
   def patch(path, headers: {}, query: {}, payload: {})
-    headers = auth_header.merge(headers)
-    response = super(path, headers: headers, query: query, payload: payload)
-
-    EdFi::Client::Response.new(response, client: self)
+    (headers, query, payload) = preprocess(headers, query, payload)
+    respond_with super(path, headers: headers, query: query, payload: payload)
   end
 
   def post(path, headers: {}, query: {}, payload: {})
-    headers = auth_header.merge(headers)
-    response = super(path, headers: headers, query: query, payload: payload)
-
-    EdFi::Client::Response.new(response, client: self)
+    (headers, query, payload) = preprocess(headers, query, payload)
+    respond_with super(path, headers: headers, query: query, payload: payload)
   end
 
   def put(path, headers: {}, query: {}, payload: {})
-    headers = auth_header.merge(headers)
-    response = super(path, headers: headers, query: query, payload: payload)
-
-    EdFi::Client::Response.new(response, client: self)
+    (headers, query, payload) = preprocess(headers, query, payload)
+    respond_with super(path, headers: headers, query: query, payload: payload)
   end
 
   ## API segment proxies ...
@@ -95,5 +85,17 @@ class EdFi::Client < Crapi::Client
                           access: access)
 
     { 'Accept': content_type, 'Content-Type': content_type }
+  end
+
+  def preprocess(headers, query = nil, payload = nil)
+    headers = auth_header.merge(headers)
+    query = query.deep_transform_keys { |key| key.to_s.camelize(:lower) } if query.is_a? Hash
+    payload = payload.deep_transform_keys { |key| key.to_s.camelize(:lower) } if payload.is_a? Hash
+
+    [headers, query, payload]
+  end
+
+  def respond_with(response)
+    EdFi::Client::Response.new(response, client: self)
   end
 end
