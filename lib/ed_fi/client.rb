@@ -79,7 +79,7 @@ class EdFi::Client < Crapi::Client
              when :write, :writable
                :writable
              else
-               raise EdFi::Client::ArgumentError, "Invalid `access` value: #{access.inspect}"
+               raise EdFi::Client::ArgumentError, %(Unexpected "access" value: #{access.inspect})
              end
 
     content_type = format(PROFILE_CONTENT_TYPE,

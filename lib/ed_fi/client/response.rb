@@ -22,7 +22,7 @@ class EdFi::Client < Crapi::Client
         end
 
       else
-        raise EdFi::Client::ArgumentError, %("source" must be a collection; #{source.class} given)
+        raise EdFi::Client::ArgumentError, %(Unexpected "response" type: #{response.class})
 
       end
     end
