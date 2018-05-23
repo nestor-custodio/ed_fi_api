@@ -3,6 +3,7 @@ require 'crapi'
 
 require 'ed_fi/client/auth'
 require 'ed_fi/client/errors'
+require 'ed_fi/client/response'
 require 'ed_fi/client/version'
 
 class EdFi::Client < Crapi::Client
@@ -28,27 +29,37 @@ class EdFi::Client < Crapi::Client
 
   def delete(path, headers: {}, query: {})
     headers = auth_header.merge(headers)
-    super(path, headers: headers, query: query)
+    response = super(path, headers: headers, query: query)
+
+    EdFi::Client::Response.new(response)
   end
 
   def get(path, headers: {}, query: {})
     headers = auth_header.merge(headers)
-    super(path, headers: headers, query: query)
+    response = super(path, headers: headers, query: query)
+
+    EdFi::Client::Response.new(response)
   end
 
   def patch(path, headers: {}, query: {}, payload: {})
     headers = auth_header.merge(headers)
-    super(path, headers: headers, query: query, payload: payload)
+    response = super(path, headers: headers, query: query, payload: payload)
+
+    EdFi::Client::Response.new(response)
   end
 
   def post(path, headers: {}, query: {}, payload: {})
     headers = auth_header.merge(headers)
-    super(path, headers: headers, query: query, payload: payload)
+    response = super(path, headers: headers, query: query, payload: payload)
+
+    EdFi::Client::Response.new(response)
   end
 
   def put(path, headers: {}, query: {}, payload: {})
     headers = auth_header.merge(headers)
-    super(path, headers: headers, query: query, payload: payload)
+    response = super(path, headers: headers, query: query, payload: payload)
+
+    EdFi::Client::Response.new(response)
   end
 
   ##
