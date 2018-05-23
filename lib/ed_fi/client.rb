@@ -26,6 +26,27 @@ class EdFi::Client < Crapi::Client
                                    client_secret: opts[:client_secret])
   end
 
+  def profile_header(readable: nil, writable: nil)
+    raise EdFi::Client::ArgumentError, 'bad profile header access directive' if readable && writable
+
+    if readable.present?
+      resource = readable.downcase
+      access = :readable
+    end
+    if writable.present?
+      resource = writable.downcase
+      access = :writable
+    end
+
+    profile = @profile.downcase
+
+    content_type = format(PROFILE_CONTENT_TYPE, resource: resource,
+                                                profile: profile,
+                                                access: access)
+
+    { 'Accept': content_type, 'Content-Type': content_type }.with_indifferent_access
+  end
+
   ## CRUD methods ...
 
   def delete(path, headers: {}, query: {})
@@ -67,24 +88,6 @@ class EdFi::Client < Crapi::Client
 
   def auth_header
     { 'Authorization': "Bearer #{@auth.token}" }
-  end
-
-  def profile_header(resource, access)
-    access = case access.to_sym
-             when :read, :readable
-               :readable
-             when :write, :writable
-               :writable
-             else
-               raise EdFi::Client::ArgumentError, %(Unexpected "access" value: #{access.inspect})
-             end
-
-    content_type = format(PROFILE_CONTENT_TYPE,
-                          resource: resource.downcase,
-                          profile: @profile.downcase,
-                          access: access)
-
-    { 'Accept': content_type, 'Content-Type': content_type }
   end
 
   def preprocess(headers, query = nil, payload = nil)
