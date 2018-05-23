@@ -40,9 +40,31 @@ class EdFi::Client < Crapi::Client
       end
     end
 
-    def to_json
-      @response.to_json
+    def to_s
+      @response.to_s
     end
+
+    def inspect
+      @response.inspect
+    end
+
+    ## rubocop:disable Security/Eval
+    ## We're running `eval` on the `#to_s` of a built-in type, which is safe.
+    ## Attempting to let `#as_json` run on its own results in a stack overflow.
+    ##
+    def as_json
+      eval(to_s).as_json
+    end
+    ## rubocop:enable Security/Eval
+
+    ## rubocop:disable Security/Eval
+    ## We're running `eval` on the `#to_s` of a built-in type, which is safe.
+    ## Attempting to let `#to_json` run on its own results in a stack overflow.
+    ##
+    def to_json
+      eval(to_s).to_json
+    end
+    ## rubocop:enable Security/Eval
 
     ## rubocop:disable Style/MethodMissing, Metrics/BlockNesting
     def method_missing(name, *args, &block)
