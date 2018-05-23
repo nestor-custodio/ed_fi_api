@@ -62,6 +62,12 @@ class EdFi::Client < Crapi::Client
     EdFi::Client::Response.new(response)
   end
 
+  ## API segment proxies ...
+
+   def v2(period)
+     @v2 ||= EdFi::Client::Proxy.new(add: "/api/v2.0/#{period}", to: self)
+   end
+
   ##
 
   private
