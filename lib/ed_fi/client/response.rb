@@ -1,7 +1,19 @@
 require 'crapi'
 
 class EdFi::Client < Crapi::Client
+  ## Represents an API response. {EdFi::Client::Response EdFi::Client::Response} instances
+  ## initialized from a Hash also allow for reference chaining.
+  ##
   class Response
+    ## @param response [Hash, Array]
+    ##   The value to encapsulate as an {EdFi::Client::Response EdFi::Client::Response}.
+    ##
+    ## @param client [Crapi::Client]
+    ##   The client to use for request chaining.
+    ##
+    ##
+    ## @raise [EdFi::Client::ArgumentError]
+    ##
     def initialize(response, client: nil)
       @client = client
 
@@ -27,6 +39,9 @@ class EdFi::Client < Crapi::Client
       end
     end
 
+    ## Deep updates the associated Crapi::Client] for this and all descendant
+    ## {EdFi::Client::Response EdFi::Client::Response} instances.
+    ##
     def client=(client)
       @client = client
 
@@ -40,17 +55,24 @@ class EdFi::Client < Crapi::Client
       end
     end
 
+    ## @private
+    ##
     def to_s
       @response.to_s
     end
 
+    ## @private
+    ##
     def inspect
       @response.inspect
     end
 
     ## rubocop:disable Security/Eval
+    ##
     ## We're running `eval` on the `#to_s` of a built-in type, which is safe.
     ## Attempting to let `#as_json` run on its own results in a stack overflow.
+
+    ## @private
     ##
     def as_json
       eval(to_s).as_json
@@ -58,8 +80,11 @@ class EdFi::Client < Crapi::Client
     ## rubocop:enable Security/Eval
 
     ## rubocop:disable Security/Eval
+    ##
     ## We're running `eval` on the `#to_s` of a built-in type, which is safe.
     ## Attempting to let `#to_json` run on its own results in a stack overflow.
+
+    ## @private
     ##
     def to_json
       eval(to_s).to_json
@@ -67,6 +92,9 @@ class EdFi::Client < Crapi::Client
     ## rubocop:enable Security/Eval
 
     ## rubocop:disable Style/MethodMissing, Metrics/BlockNesting
+
+    ## @private
+    ##
     def method_missing(name, *args, &block)
       ## Note references are cached.
       ## To force a refresh on an already-cached reference,
@@ -94,6 +122,8 @@ class EdFi::Client < Crapi::Client
     end
     ## rubocop:enable Style/MethodMissing, Metrics/BlockNesting
 
+    ## @private
+    ##
     def respond_to_missing?(name, include_private = false)
       ( \
         ( \
