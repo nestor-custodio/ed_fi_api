@@ -8,14 +8,14 @@ require 'ed_fi/client/response'
 require 'ed_fi/client/version'
 
 class EdFi::Client < Crapi::Client
-  PROFILE_CONTENT_TYPE = 'application/vnd.ed-fi.%<resource>s.%<profile>s.%<access>s+json'.freeze
+  PROFILE_MIME_TYPE = 'application/vnd.ed-fi.%<resource>s.%<profile>s.%<access>s+json'.freeze
 
   def initialize(base_uri, opts = {})
     required_opts = %i[client_id client_secret]
     required_opts.each { |opt| raise ArgumentError, "missing keyword: #{opt}" unless opts.key? opt }
 
     super(base_uri, opts)
-    @profile = opts[:profile]
+    self.profile = opts[:profile]
 
     ## Giving the EdFi::Client::Auth instance its own Crapi client lets us do fancy things with the
     ## API segmenting stuff ...
@@ -26,26 +26,27 @@ class EdFi::Client < Crapi::Client
                                    client_secret: opts[:client_secret])
   end
 
-  def profile_header(readable: nil, writable: nil)
-    raise EdFi::Client::ArgumentError, 'bad profile header access directive' if readable && writable
-
-    if readable.present?
-      resource = readable.downcase
-      access = :readable
-    end
-    if writable.present?
-      resource = writable.downcase
-      access = :writable
-    end
-
-    profile = @profile.downcase
-
-    content_type = format(PROFILE_CONTENT_TYPE, resource: resource,
-                                                profile: profile,
-                                                access: access)
-
-    { 'Accept': content_type, 'Content-Type': content_type }.with_indifferent_access
+  def profile=(profile)
+    @profile = profile&.to_s&.downcase
   end
+
+  ## rubocop:disable Naming/UncommunicativeMethodParamName
+  def read(resource, as: nil)
+    self.profile = as if as.present?
+    mime_type = format(PROFILE_MIME_TYPE, resource: resource, profile: @profile, access: :readable)
+
+    { 'Accept': mime_type }.with_indifferent_access
+  end
+  ## rubocop:enable Naming/UncommunicativeMethodParamName
+
+  ## rubocop:disable Naming/UncommunicativeMethodParamName
+  def write(resource, as: nil)
+    self.profile = as if as.present?
+    mime_type = format(PROFILE_MIME_TYPE, resource: resource, profile: @profile, access: :writable)
+
+    { 'Content-Type': mime_type }.with_indifferent_access
+  end
+  ## rubocop:enable Naming/UncommunicativeMethodParamName
 
   ## CRUD methods ...
 
@@ -87,7 +88,7 @@ class EdFi::Client < Crapi::Client
   ##
 
   def auth_header
-    { 'Authorization': "Bearer #{@auth.token}" }
+    { 'Authorization': "Bearer #{@auth.token}" }.with_indifferent_access
   end
 
   def preprocess(headers, query = nil, payload = nil)
