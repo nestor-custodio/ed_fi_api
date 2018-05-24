@@ -7,8 +7,10 @@ require 'ed_fi/client/errors'
 class EdFi::Client < Crapi::Client
   class Auth
     AUTHORIZATION_CODE_URI = '/oauth/authorize'.freeze
+    AUTHORIZATION_CODE_CONTENT_TYPE = 'application/x-www-form-urlencoded'.freeze
+
     ACCESS_TOKEN_URI = '/oauth/token'.freeze
-    FORM_CONTENT_TYPE = 'application/x-www-form-urlencoded'.freeze
+    ACCESS_TOKEN_CONTENT_TYPE = 'application/json'.freeze
 
     def initialize(client:, client_id:, client_secret:)
       @client = client
@@ -33,7 +35,7 @@ class EdFi::Client < Crapi::Client
       auth = @client.post(
         AUTHORIZATION_CODE_URI,
         payload: { Client_id: @client_id, Response_type: 'code' },
-        headers: { 'Content-Type': FORM_CONTENT_TYPE }
+        headers: { 'Content-Type': AUTHORIZATION_CODE_CONTENT_TYPE }
       )
       raise EdFi::Client::UnableToAuthenticateError, 'Failed to fetch authorization code.' unless auth&.key? :code
 
@@ -44,7 +46,8 @@ class EdFi::Client < Crapi::Client
       auth = @client.post(
         ACCESS_TOKEN_URI,
         payload: { Client_id: @client_id, Client_secret: @client_secret,
-                   Code: new_authorization_code, Grant_type: 'authorization_code' }
+                   Code: new_authorization_code, Grant_type: 'authorization_code' },
+        headers: { 'Content-Type': ACCESS_TOKEN_CONTENT_TYPE }
       )
       raise EdFi::Client::UnableToAuthenticateError, 'Failed to fetch access token.' unless auth&.key? :access_token
 
