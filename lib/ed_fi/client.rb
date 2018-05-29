@@ -165,8 +165,8 @@ class EdFi::Client < Crapi::Client
 
   ## API segment proxies ...
 
-  ## Convenience proxy generator for v2.0 API access, adding also the school year you'd like to
-  ## access.
+  ## Convenience proxy generator for v2.0 API access, also addomg the school year you'd like to
+  ## access, if given.
   ##
   ##
   ## @param period [Integer]
@@ -176,8 +176,15 @@ class EdFi::Client < Crapi::Client
   ##
   ## @return [EdFi::Client::Proxy]
   ##
-  def v2(period)
-    @v2 ||= EdFi::Client::Proxy.new(add: "/api/v2.0/#{period}", to: self)
+  def v2(period = nil)
+    period = period.to_i
+
+    @v2 = {} if @v2.nil?
+    @v2[period] ||= begin
+      path = '/api/v2.0'
+      path += "/#{period}" if period.nonzero?
+      EdFi::Client::Proxy.new(add: path, to: self)
+    end
   end
 
   ##
