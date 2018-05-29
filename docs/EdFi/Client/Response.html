@@ -281,7 +281,11 @@ instances initialized from a Hash also allow for reference chaining.</p>
 37
 38
 39
-40</pre>
+40
+41
+42
+43
+44</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/ed_fi/client/response.rb', line 17</span>
@@ -297,13 +301,17 @@ instances initialized from a Hash also allow for reference chaining.</p>
       <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../EdFi.html" title="EdFi (module)">EdFi</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Client.html" title="EdFi::Client (class)">Client</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="EdFi::Client::Response (class)">Response</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='label'>client:</span> <span class='ivar'>@client</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
 
       <span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rbracket'>]</span>
-    <span class='kw'>end</span><span class='period'>.</span><span class='id identifier rubyid_to_h'>to_h</span>
+    <span class='kw'>end</span><span class='period'>.</span><span class='id identifier rubyid_to_h'>to_h</span><span class='period'>.</span><span class='id identifier rubyid_with_indifferent_access'>with_indifferent_access</span>
 
   <span class='kw'>when</span> <span class='const'>Array</span>
     <span class='ivar'>@response</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
       <span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../EdFi.html" title="EdFi (module)">EdFi</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Client.html" title="EdFi::Client (class)">Client</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="EdFi::Client::Response (class)">Response</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='comma'>,</span> <span class='label'>client:</span> <span class='ivar'>@client</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_i'>i</span>
     <span class='kw'>end</span>
+
+  <span class='kw'>when</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
+    <span class='comment'>## This can happen for non-body-returning calls.
+</span>    <span class='ivar'>@response</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_with_indifferent_access'>with_indifferent_access</span>
 
   <span class='kw'>else</span>
     <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../../EdFi.html" title="EdFi (module)">EdFi</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Client.html" title="EdFi::Client (class)">Client</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ArgumentError.html" title="EdFi::Client::ArgumentError (class)">ArgumentError</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>Unexpected &quot;response&quot; type: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_end'>)</span></span>
@@ -338,10 +346,6 @@ instances initialized from a Hash also allow for reference chaining.</p>
       <pre class="lines">
 
 
-98
-99
-100
-101
 102
 103
 104
@@ -362,10 +366,17 @@ instances initialized from a Hash also allow for reference chaining.</p>
 119
 120
 121
-122</pre>
+122
+123
+124
+125
+126
+127
+128
+129</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/response.rb', line 98</span>
+      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/response.rb', line 102</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='comment'>## Note references are cached.
@@ -377,10 +388,13 @@ instances initialized from a Hash also allow for reference chaining.</p>
     <span class='comment'>## Allow for acceess to response values via dot notation.
 </span>    <span class='kw'>return</span> <span class='ivar'>@response</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='ivar'>@response</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span> <span class='id identifier rubyid_name'>name</span>
 
+    <span class='comment'>## Allow for assignment to response values via dot notation.
+</span>    <span class='kw'>return</span> <span class='ivar'>@response</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:[]=</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>...</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_ends_with?'>ends_with?</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>=</span><span class='tstring_end'>&#39;</span></span>
+
     <span class='comment'>## Allow for simple access to referenced resources.
 </span>    <span class='kw'>if</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
       <span class='ivar'>@references</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-      <span class='id identifier rubyid_reference'>reference</span> <span class='op'>=</span> <span class='ivar'>@response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>_reference</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_link'>link</span><span class='period'>.</span><span class='id identifier rubyid_href'>href</span> <span class='kw'>rescue</span> <span class='kw'>nil</span>
+      <span class='id identifier rubyid_reference'>reference</span> <span class='op'>=</span> <span class='ivar'>@response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>_reference</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_link'>link</span><span class='period'>.</span><span class='id identifier rubyid_href'>href</span> <span class='kw'>rescue</span> <span class='kw'>nil</span>
 
       <span class='kw'>if</span> <span class='id identifier rubyid_reference'>reference</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
         <span class='ivar'>@references</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_reference'>reference</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='kw'>true</span>
@@ -431,10 +445,6 @@ instances initialized from a Hash also allow for reference chaining.</p>
       <pre class="lines">
 
 
-45
-46
-47
-48
 49
 50
 51
@@ -442,10 +452,14 @@ instances initialized from a Hash also allow for reference chaining.</p>
 53
 54
 55
-56</pre>
+56
+57
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/response.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/response.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_client='>client=</span><span class='lparen'>(</span><span class='id identifier rubyid_client'>client</span><span class='rparen'>)</span>
   <span class='ivar'>@client</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span>
@@ -469,7 +483,7 @@ instances initialized from a Hash also allow for reference chaining.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May 24 18:35:38 2018 by
+  Generated on Tue May 29 14:49:47 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.12 (ruby-2.5.1).
 </div>

@@ -58,14 +58,10 @@
       </div>
 
       <div id="content"><div id='filecontents'>
-<h1 id="label-EdFiClient">EdFiClient</h1>
+<h1 id="label-EdFi-3A-3AClient+rdoc-image-3Ahttps-3A-2F-2Fbadge.fury.io-2Frb-2Fed_fi_client.svg">EdFi::Client <a href="https://badge.fury.io/rb/ed_fi_client"><img src="https://badge.fury.io/rb/ed_fi_client.svg"></a></h1>
 
-<p>Welcome to your new gem! In this directory, you&#39;ll find the files you
-need to be able to package up your Ruby library into a gem. Put your Ruby
-code in the file <code>lib/ed_fi_client</code>. To experiment with that
-code, run <code>bin/console</code> for an interactive prompt.</p>
-
-<p>TODO: Delete this and the text above, and describe your gem</p>
+<p>A utility class for authenticating to and making CRUD calls against an
+Ed-Fi ODS API.</p>
 
 <h2 id="label-Installation">Installation</h2>
 
@@ -84,28 +80,103 @@ code, run <code>bin/console</code> for an interactive prompt.</p>
 <pre class="code ruby"><code class="ruby">$ gem install ed_fi_client
 </code></pre>
 
-<h2 id="label-Usage">Usage</h2>
+<h2 id="label-Using+EdFi-3A-3AClient">Using EdFi::Client</h2>
 
-<p>TODO: Write usage instructions here</p>
+<h3 id="label-Basic+Usage-3A+Reading+Data">Basic Usage: Reading Data</h3>
 
-<h2 id="label-Development">Development</h2>
+<pre class="code ruby"><code class="ruby"><span class='comment'>## Establish a connection to an Ed-Fi ODS / API.
+</span><span class='comment'>## (We&#39;ll use the Alliance-hosted Ed-Fi ODS / API sandbox instance.)
+</span>
+<span class='id identifier rubyid_sandbox'>sandbox</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="EdFi.html" title="EdFi (module)">EdFi</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="EdFi/Client.html" title="EdFi::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="EdFi/Client.html#initialize-instance_method" title="EdFi::Client#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>https://api.ed-fi.org/api/</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='label'>client_id:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>RvcohKz9zHI4</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='label'>client_secret:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>E1iEFusaNf81xzCxwHfbolkC</span><span class='tstring_end'>&#39;</span></span>
+<span class='rparen'>)</span>
+
+<span class='id identifier rubyid_sandbox'>sandbox</span> <span class='op'>=</span> <span class='id identifier rubyid_sandbox'>sandbox</span><span class='period'>.</span><span class='id identifier rubyid_v2'>v2</span><span class='lparen'>(</span><span class='int'>2017</span><span class='rparen'>)</span>  <span class='comment'>## For purposes of these samples, we&#39;re only
+</span>                            <span class='comment'>## concerned with 2017-2018 school-year data.
+</span>
+
+<span class='comment'>## Let&#39;s pull some assorted values!
+</span>
+<span class='id identifier rubyid_sandbox'>sandbox</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>schools</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>query:</span> <span class='lbrace'>{</span> <span class='label'>school_id:</span> <span class='int'>255901001</span> <span class='rbrace'>}</span><span class='rparen'>)</span>  <span class='comment'>## Get school 255901001.
+</span>
+<span class='id identifier rubyid_sandbox'>sandbox</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>disciplineIncidents</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>  <span class='comment'>## Get all discipline incidents.
+</span><span class='id identifier rubyid_sandbox'>sandbox</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>disciplineIncidents</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_sample'>sample</span><span class='period'>.</span><span class='id identifier rubyid_school'>school</span>  <span class='comment'>## A random incident&#39;s school.
+</span>
+<span class='id identifier rubyid_all_schools'>all_schools</span> <span class='op'>=</span> <span class='id identifier rubyid_sandbox'>sandbox</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>schools</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>  <span class='comment'>## All schools.
+</span><span class='id identifier rubyid_all_schools'>all_schools</span><span class='period'>.</span><span class='id identifier rubyid_sample'>sample</span><span class='period'>.</span><span class='id identifier rubyid_name_of_institution'>name_of_institution</span>  <span class='comment'>## A random school&#39;s name.
+</span><span class='id identifier rubyid_all_schools'>all_schools</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_school_id'>school_id</span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_h'>to_h</span>  <span class='comment'>## Maps ODS IDs to school IDs.
+</span></code></pre>
+<hr>
+
+<h3 id="label-Basic+Usage-3A+Writing+Data">Basic Usage: Writing Data</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_sandbox'>sandbox</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="EdFi.html" title="EdFi (module)">EdFi</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="EdFi/Client.html" title="EdFi::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="EdFi/Client.html#initialize-instance_method" title="EdFi::Client#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>https://api.ed-fi.org/api/</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='label'>client_id:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>RvcohKz9zHI4</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='label'>client_secret:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>E1iEFusaNf81xzCxwHfbolkC</span><span class='tstring_end'>&#39;</span></span>
+<span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_v2'><span class='object_link'><a href="EdFi/Client.html#v2-instance_method" title="EdFi::Client#v2 (method)">v2</a></span></span><span class='lparen'>(</span><span class='int'>2017</span><span class='rparen'>)</span>
+
+<span class='id identifier rubyid_school'>school</span> <span class='op'>=</span> <span class='id identifier rubyid_sandbox'>sandbox</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>schools</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_sample'>sample</span>
+<span class='id identifier rubyid_original_name'>original_name</span> <span class='op'>=</span> <span class='id identifier rubyid_school'>school</span><span class='period'>.</span><span class='id identifier rubyid_name_of_institution'>name_of_institution</span>  <span class='comment'>## So we can leave it like we found it.
+</span>
+
+<span class='comment'>## Via PUT ...
+</span>
+<span class='id identifier rubyid_school'>school</span><span class='period'>.</span><span class='id identifier rubyid_name_of_institution'>name_of_institution</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>New Name, via PUT</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_sandbox'>sandbox</span><span class='period'>.</span><span class='id identifier rubyid_put'>put</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>schools/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_school'>school</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>payload:</span> <span class='id identifier rubyid_school'>school</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_sandbox'>sandbox</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>schools/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_school'>school</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_name_of_institution'>name_of_institution</span>  <span class='comment'>## =&gt; &quot;New Name, via PUT&quot;
+</span>
+
+<span class='comment'>## Via POST ...
+</span>
+<span class='id identifier rubyid_school'>school</span><span class='period'>.</span><span class='id identifier rubyid_name_of_institution'>name_of_institution</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>New Name, via POST</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_sandbox'>sandbox</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>schools</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>payload:</span> <span class='id identifier rubyid_school'>school</span><span class='period'>.</span><span class='id identifier rubyid_except'>except</span><span class='lparen'>(</span><span class='symbol'>:id</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_sandbox'>sandbox</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>schools/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_school'>school</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_name_of_institution'>name_of_institution</span>  <span class='comment'>## =&gt; &quot;New Name, via POST&quot;
+</span>
+
+<span class='comment'>## Let&#39;s leave things like we found them.
+</span>
+<span class='id identifier rubyid_school'>school</span><span class='period'>.</span><span class='id identifier rubyid_name_of_institution'>name_of_institution</span> <span class='op'>=</span> <span class='id identifier rubyid_original_name'>original_name</span>
+<span class='id identifier rubyid_sandbox'>sandbox</span><span class='period'>.</span><span class='id identifier rubyid_put'>put</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>schools/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_school'>school</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>payload:</span> <span class='id identifier rubyid_school'>school</span><span class='rparen'>)</span>
+</code></pre>
+<hr>
+
+<p><a
+href="http://nestor-custodio.github.io/ed_fi_client/EdFi/Client.html">Consult
+the repo docs for the full EdFi::Client documentation.</a></p>
+
+<h2 id="label-Feature+Roadmap+-2F+Future+Development">Feature Roadmap / Future Development</h2>
+
+<p>Additional features/options coming in the future:</p>
+<ul><li>
+<p>Cleaner handling of non-body-returning calls.</p>
+</li><li>
+<p>Use the given base endpoint&#39;s Swagger API definition file (if present)
+to make collections/resources more easily reachable: <code>#schools</code>,
+<code>#discipline_incidents</code>, etc.</p>
+</li><li>
+<p>Allow for easier manipulation of resources via AR-like methods
+(<code>#find</code>, <code>#find_by</code>, <code>#where</code>,
+<code>#create</code>, <code>#update</code>, etc).</p>
+</li></ul>
+
+<h2 id="label-Contribution+-2F+Development">Contribution / Development</h2>
+
+<p>Bug reports and pull requests are welcome on GitHub at <a
+href="https://github.com/nestor-custodio/ed_fi_client">github.com/nestor-custodio/ed_fi_client</a>.</p>
 
 <p>After checking out the repo, run <code>bin/setup</code> to install
 dependencies. Then, run <code>rake spec</code> to run the tests. You can
 also run <code>bin/console</code> for an interactive prompt that will allow
 you to experiment.</p>
 
-<p>To install this gem onto your local machine, run <code>bundle exec rake
-install</code>. To release a new version, update the version number in
-<code>version.rb</code>, and then run <code>bundle exec rake
-release</code>, which will create a git tag for the version, push git
-commits and tags, and push the <code>.gem</code> file to <a
-href="https://rubygems.org">rubygems.org</a>.</p>
-
-<h2 id="label-Contributing">Contributing</h2>
-
-<p>Bug reports and pull requests are welcome on GitHub at <a
-href="https://github.com/[USERNAME]/ed_fi_client">github.com/[USERNAME]/ed_fi_client</a>.</p>
+<p>Linting is courtesy of <a
+href="https://github.com/bbatsov/rubocop">Rubocop</a> and documentation is
+built using <a href="https://yardoc.org/">Yard</a>. Neither is included in
+the Gemspec; you&#39;ll need to install these locally (<code>gem install
+rubocop yard</code>) to take advantage.</p>
 
 <h2 id="label-License">License</h2>
 
@@ -114,7 +185,7 @@ href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Thu May 24 18:35:37 2018 by
+  Generated on Tue May 29 14:49:47 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.12 (ruby-2.5.1).
 </div>
