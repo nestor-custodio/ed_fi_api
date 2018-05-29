@@ -25,7 +25,7 @@ class EdFi::Client < Crapi::Client
           value = EdFi::Client::Response.new(value, client: @client) if value.is_a?(Hash) || value.is_a?(Array)
 
           [key, value]
-        end.to_h
+        end.to_h.with_indifferent_access
 
       when Array
         @response = response.dup.map do |i|
@@ -91,7 +91,7 @@ class EdFi::Client < Crapi::Client
     end
     ## rubocop:enable Security/Eval
 
-    ## rubocop:disable Style/MethodMissing, Metrics/BlockNesting
+    ## rubocop:disable Style/MethodMissing, Metrics/BlockNesting, Metrics/PerceivedComplexity
 
     ## @private
     ##
@@ -105,10 +105,13 @@ class EdFi::Client < Crapi::Client
         ## Allow for acceess to response values via dot notation.
         return @response[name] if @response.key? name
 
+        ## Allow for assignment to response values via dot notation.
+        return @response.send(:'[]=', name[0...-1], *args, &block) if name.to_s.ends_with? '='
+
         ## Allow for simple access to referenced resources.
         if @client.present?
           @references ||= {}
-          reference = @response["#{name}_reference".to_sym].link.href rescue nil
+          reference = @response["#{name}_reference"].link.href rescue nil
 
           if reference.present?
             @references.delete(reference) if args[0] == true
@@ -120,7 +123,7 @@ class EdFi::Client < Crapi::Client
       ## All other unaccounted-for method calls should be delegated to the response Hash/Array.
       @response.send(name, *args, &block)
     end
-    ## rubocop:enable Style/MethodMissing, Metrics/BlockNesting
+    ## rubocop:enable Style/MethodMissing, Metrics/BlockNesting, Metrics/PerceivedComplexity
 
     ## @private
     ##
