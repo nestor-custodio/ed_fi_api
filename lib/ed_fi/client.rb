@@ -220,6 +220,8 @@ class EdFi::Client < Crapi::Client
   ## @return [(Hash, Hash, Hash)]
   ##
   def preprocess(headers, query = nil, payload = nil)
+    payload = payload.as_json if payload.is_a? EdFi::Client::Response
+
     headers = auth_header.merge(headers)
     query = query.deep_transform_keys { |key| key.to_s.camelize(:lower) } if query.is_a? Hash
     payload = payload.deep_transform_keys { |key| key.to_s.camelize(:lower) } if payload.is_a? Hash

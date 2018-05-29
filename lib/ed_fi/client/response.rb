@@ -33,6 +33,10 @@ class EdFi::Client < Crapi::Client
           i
         end
 
+      when nil, ''
+        ## This can happen for non-body-returning calls.
+        @response = {}.with_indifferent_access
+
       else
         raise EdFi::Client::ArgumentError, %(Unexpected "response" type: #{response.class})
 
