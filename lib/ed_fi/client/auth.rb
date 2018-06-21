@@ -4,6 +4,7 @@ require 'json'
 require 'ed_fi/client/access_token'
 require 'ed_fi/client/errors'
 
+module EdFi; end
 class EdFi::Client < Crapi::Client
   ## The {EdFi::Client::Auth EdFi::Client::Auth} represents a complete authentication *mechanism*
   ## that makes the necessary calls for authorization codes and access tokens, keeps track of any

@@ -1,5 +1,6 @@
 require 'crapi'
 
+module EdFi; end
 class EdFi::Client < Crapi::Client
   ## The {EdFi::Client::AccessToken EdFi::Client::AccessToken} represents an access token, as
   ## returned by "/oauth/token" calls.

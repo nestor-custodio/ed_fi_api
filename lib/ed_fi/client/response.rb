@@ -1,5 +1,6 @@
 require 'crapi'
 
+module EdFi; end
 class EdFi::Client < Crapi::Client
   ## Represents an API response. {EdFi::Client::Response EdFi::Client::Response} instances
   ## initialized from a Hash also allow for reference chaining.

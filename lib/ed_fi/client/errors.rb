@@ -1,5 +1,6 @@
 require 'crapi'
 
+module EdFi; end
 class EdFi::Client < Crapi::Client
   ## The base Error class for all {EdFi::Client}-related issues.
   ##

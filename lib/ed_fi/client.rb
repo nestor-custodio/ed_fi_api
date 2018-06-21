@@ -7,6 +7,8 @@ require 'ed_fi/client/proxy'
 require 'ed_fi/client/response'
 require 'ed_fi/client/version'
 
+module EdFi; end
+
 ## The main container defined by the **ed_fi_client** gem. Provides a connection mechanism, an
 ## authentication mechanism, simple CRUD methods ({#delete} / {#get} / {#patch} / {#post} / {#put}),
 ## and proxy generators.

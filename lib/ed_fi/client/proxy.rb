@@ -1,5 +1,6 @@
 require 'crapi'
 
+module EdFi; end
 class EdFi::Client < Crapi::Client
   ## The Crapi::Proxy to {EdFi::Client}'s Crapi::Client.
   ##
