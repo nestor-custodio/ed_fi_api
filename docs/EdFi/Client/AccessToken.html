@@ -6,7 +6,7 @@
 <title>
   Class: EdFi::Client::AccessToken
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.14
   
 </title>
 
@@ -330,15 +330,15 @@ unset, defaults to <code>Time.current</code>.</p>
       <pre class="lines">
 
 
-26
 27
 28
 29
 30
-31</pre>
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/access_token.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/access_token.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>access_token:</span><span class='comma'>,</span> <span class='label'>token_type:</span><span class='comma'>,</span> <span class='label'>issued_at:</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='comma'>,</span> <span class='label'>expires_in:</span><span class='rparen'>)</span>
   <span class='ivar'>@access_token</span> <span class='op'>=</span> <span class='id identifier rubyid_access_token'>access_token</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
@@ -397,13 +397,13 @@ unset, defaults to <code>Time.current</code>.</p>
       <pre class="lines">
 
 
-47
 48
 49
-50</pre>
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/access_token.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/access_token.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expires_at'>expires_at</span>
   <span class='kw'>return</span> <span class='int'>1</span><span class='period'>.</span><span class='id identifier rubyid_second'>second</span><span class='period'>.</span><span class='id identifier rubyid_ago'>ago</span> <span class='kw'>if</span> <span class='ivar'>@access_token</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
@@ -453,12 +453,12 @@ unset, defaults to <code>Time.current</code>.</p>
       <pre class="lines">
 
 
-38
 39
-40</pre>
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/access_token.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/access_token.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_token'>token</span>
   <span class='ivar'>@access_token</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
@@ -509,13 +509,13 @@ the token to complete.</p>
       <pre class="lines">
 
 
-58
 59
 60
-61</pre>
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/access_token.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/access_token.rb', line 59</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_valid?'>valid?</span>
   <span class='id identifier rubyid_safety_window'>safety_window</span> <span class='op'>=</span> <span class='int'>5</span><span class='period'>.</span><span class='id identifier rubyid_seconds'>seconds</span>
@@ -531,9 +531,9 @@ the token to complete.</p>
 </div>
 
       <div id="footer">
-  Generated on Tue May 29 14:49:48 2018 by
+  Generated on Thu Jun 21 17:02:43 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.12 (ruby-2.5.1).
+  0.9.14 (ruby-2.5.1).
 </div>
 
     </div>

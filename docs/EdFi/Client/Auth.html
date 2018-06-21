@@ -6,7 +6,7 @@
 <title>
   Class: EdFi::Client::Auth
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.14
   
 </title>
 
@@ -115,11 +115,16 @@ lifecycle.</p>
   
 
 </div>
-  <h2>Constant Summary</h2>
-  <dl class="constants">
-    
-      <dt id="AUTHORIZATION_CODE_URI-constant" class="">AUTHORIZATION_CODE_URI =
-        <div class="docstring">
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="AUTHORIZATION_CODE_URI-constant" class="">AUTHORIZATION_CODE_URI =
+          <div class="docstring">
   <div class="discussion">
     
 <p>The URI to request an authorization code.</p>
@@ -131,11 +136,11 @@ lifecycle.</p>
   
 
 </div>
-      </dt>
-      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/oauth/authorize</span><span class='tstring_end'>&#39;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-      <dt id="AUTHORIZATION_CODE_CONTENT_TYPE-constant" class="">AUTHORIZATION_CODE_CONTENT_TYPE =
-        <div class="docstring">
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/oauth/authorize</span><span class='tstring_end'>&#39;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+        <dt id="AUTHORIZATION_CODE_CONTENT_TYPE-constant" class="">AUTHORIZATION_CODE_CONTENT_TYPE =
+          <div class="docstring">
   <div class="discussion">
     
 <p>The MIME content type to use for authorization code requests.</p>
@@ -147,11 +152,11 @@ lifecycle.</p>
   
 
 </div>
-      </dt>
-      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/x-www-form-urlencoded</span><span class='tstring_end'>&#39;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-      <dt id="ACCESS_TOKEN_URI-constant" class="">ACCESS_TOKEN_URI =
-        <div class="docstring">
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/x-www-form-urlencoded</span><span class='tstring_end'>&#39;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+        <dt id="ACCESS_TOKEN_URI-constant" class="">ACCESS_TOKEN_URI =
+          <div class="docstring">
   <div class="discussion">
     
 <p>The URI to request an access token.</p>
@@ -163,11 +168,11 @@ lifecycle.</p>
   
 
 </div>
-      </dt>
-      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/oauth/token</span><span class='tstring_end'>&#39;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-      <dt id="ACCESS_TOKEN_CONTENT_TYPE-constant" class="">ACCESS_TOKEN_CONTENT_TYPE =
-        <div class="docstring">
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/oauth/token</span><span class='tstring_end'>&#39;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+        <dt id="ACCESS_TOKEN_CONTENT_TYPE-constant" class="">ACCESS_TOKEN_CONTENT_TYPE =
+          <div class="docstring">
   <div class="discussion">
     
 <p>The MIME content type to use for access token requests.</p>
@@ -179,10 +184,11 @@ lifecycle.</p>
   
 
 </div>
-      </dt>
-      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/json</span><span class='tstring_end'>&#39;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-  </dl>
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/json</span><span class='tstring_end'>&#39;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+    </dl>
+  
 
 
 
@@ -335,16 +341,16 @@ least</em> 5 seconds.</p>
       <pre class="lines">
 
 
-36
 37
 38
 39
 40
 41
-42</pre>
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/auth.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/auth.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>client:</span><span class='comma'>,</span> <span class='label'>client_id:</span><span class='comma'>,</span> <span class='label'>client_secret:</span><span class='rparen'>)</span>
   <span class='ivar'>@client</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span>
@@ -408,13 +414,13 @@ longer valid.</p>
       <pre class="lines">
 
 
-51
 52
 53
-54</pre>
+54
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/auth.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/auth.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_token'>token</span>
   <span class='ivar'>@access_token</span> <span class='op'>=</span> <span class='id identifier rubyid_new_access_token'>new_access_token</span> <span class='kw'>unless</span> <span class='ivar'>@access_token</span><span class='op'>&amp;.</span><span class='id identifier rubyid_valid?'>valid?</span>
@@ -430,9 +436,9 @@ longer valid.</p>
 </div>
 
       <div id="footer">
-  Generated on Tue May 29 14:49:48 2018 by
+  Generated on Thu Jun 21 17:02:42 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.12 (ruby-2.5.1).
+  0.9.14 (ruby-2.5.1).
 </div>
 
     </div>

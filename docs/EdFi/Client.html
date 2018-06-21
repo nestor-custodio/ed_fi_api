@@ -6,7 +6,7 @@
 <title>
   Class: EdFi::Client
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.14
   
 </title>
 
@@ -97,7 +97,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/ed_fi/client.rb<span class="defines">,<br />
-  lib/ed_fi/client/version.rb,<br /> lib/ed_fi/client/response.rb,<br /> lib/ed_fi/client/access_token.rb,<br /> lib/ed_fi/client/errors.rb,<br /> lib/ed_fi/client/proxy.rb,<br /> lib/ed_fi/client/auth.rb</span>
+  lib/ed_fi/client/auth.rb,<br /> lib/ed_fi/client/proxy.rb,<br /> lib/ed_fi/client/errors.rb,<br /> lib/ed_fi/client/version.rb,<br /> lib/ed_fi/client/response.rb,<br /> lib/ed_fi/client/access_token.rb</span>
 </dd>
   </dl>
   
@@ -131,11 +131,32 @@ generators.</p>
   
 </p>
 
-  <h2>Constant Summary</h2>
-  <dl class="constants">
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="PROFILE_MIME_TYPE-constant" class="">PROFILE_MIME_TYPE =
+          <div class="docstring">
+  <div class="discussion">
     
-      <dt id="VERSION-constant" class="">VERSION =
-        <div class="docstring">
+<p>The “profile” header content-type template.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/vnd.ed-fi.%&lt;resource&gt;s.%&lt;profile&gt;s.%&lt;access&gt;s+json</span><span class='tstring_end'>&#39;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+        <dt id="VERSION-constant" class="">VERSION =
+          <div class="docstring">
   <div class="discussion">
     
 <p>The canonical <strong>ed_fi_client</strong> gem version.</p>
@@ -151,26 +172,11 @@ commit that updates this value should be pushed <strong>by</strong> the
   
 
 </div>
-      </dt>
-      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.1.0</span><span class='tstring_end'>&#39;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-      <dt id="PROFILE_MIME_TYPE-constant" class="">PROFILE_MIME_TYPE =
-        <div class="docstring">
-  <div class="discussion">
-    
-<p>The “profile” header content-type template.</p>
-
-
-  </div>
-</div>
-<div class="tags">
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.1.1</span><span class='tstring_end'>&#39;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+    </dl>
   
-
-</div>
-      </dt>
-      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/vnd.ed-fi.%&lt;resource&gt;s.%&lt;profile&gt;s.%&lt;access&gt;s+json</span><span class='tstring_end'>&#39;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-  </dl>
 
 
 
@@ -570,8 +576,6 @@ generate headers, if any.</p>
       <pre class="lines">
 
 
-41
-42
 43
 44
 45
@@ -584,10 +588,12 @@ generate headers, if any.</p>
 52
 53
 54
-55</pre>
+55
+56
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ed_fi/client.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/ed_fi/client.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_base_uri'>base_uri</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_required_opts'>required_opts</span> <span class='op'>=</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>client_id</span><span class='words_sep'> </span><span class='tstring_content'>client_secret</span><span class='tstring_end'>]</span></span>
@@ -646,13 +652,13 @@ Crapi::Proxy#delete.</p>
       <pre class="lines">
 
 
-121
-122
 123
-124</pre>
+124
+125
+126</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ed_fi/client.rb', line 121</span>
+      <pre class="code"><span class="info file"># File 'lib/ed_fi/client.rb', line 123</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='label'>headers:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>query:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_headers'>headers</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span> <span class='op'>=</span> <span class='id identifier rubyid_preprocess'>preprocess</span><span class='lparen'>(</span><span class='id identifier rubyid_headers'>headers</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
@@ -693,13 +699,13 @@ Crapi::Proxy#get.</p>
       <pre class="lines">
 
 
-131
-132
 133
-134</pre>
+134
+135
+136</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ed_fi/client.rb', line 131</span>
+      <pre class="code"><span class="info file"># File 'lib/ed_fi/client.rb', line 133</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='label'>headers:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>query:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_headers'>headers</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span> <span class='op'>=</span> <span class='id identifier rubyid_preprocess'>preprocess</span><span class='lparen'>(</span><span class='id identifier rubyid_headers'>headers</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
@@ -740,13 +746,13 @@ to Crapi::Proxy#patch.</p>
       <pre class="lines">
 
 
-141
-142
 143
-144</pre>
+144
+145
+146</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ed_fi/client.rb', line 141</span>
+      <pre class="code"><span class="info file"># File 'lib/ed_fi/client.rb', line 143</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_patch'>patch</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='label'>headers:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>query:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>payload:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_headers'>headers</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>=</span> <span class='id identifier rubyid_preprocess'>preprocess</span><span class='lparen'>(</span><span class='id identifier rubyid_headers'>headers</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
@@ -787,13 +793,13 @@ to Crapi::Proxy#post.</p>
       <pre class="lines">
 
 
-151
-152
 153
-154</pre>
+154
+155
+156</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ed_fi/client.rb', line 151</span>
+      <pre class="code"><span class="info file"># File 'lib/ed_fi/client.rb', line 153</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='label'>headers:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>query:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>payload:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_headers'>headers</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>=</span> <span class='id identifier rubyid_preprocess'>preprocess</span><span class='lparen'>(</span><span class='id identifier rubyid_headers'>headers</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
@@ -852,12 +858,12 @@ generate headers.</p>
       <pre class="lines">
 
 
-63
-64
-65</pre>
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ed_fi/client.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/ed_fi/client.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_profile='>profile=</span><span class='lparen'>(</span><span class='id identifier rubyid_profile'>profile</span><span class='rparen'>)</span>
   <span class='ivar'>@profile</span> <span class='op'>=</span> <span class='id identifier rubyid_profile'>profile</span><span class='op'>&amp;.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='op'>&amp;.</span><span class='id identifier rubyid_downcase'>downcase</span>
@@ -897,13 +903,13 @@ to Crapi::Proxy#put.</p>
       <pre class="lines">
 
 
-161
-162
 163
-164</pre>
+164
+165
+166</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ed_fi/client.rb', line 161</span>
+      <pre class="code"><span class="info file"># File 'lib/ed_fi/client.rb', line 163</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_put'>put</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='label'>headers:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>query:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>payload:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_headers'>headers</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span> <span class='op'>=</span> <span class='id identifier rubyid_preprocess'>preprocess</span><span class='lparen'>(</span><span class='id identifier rubyid_headers'>headers</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
@@ -991,15 +997,15 @@ optional.</p>
       <pre class="lines">
 
 
-82
-83
 84
 85
 86
-87</pre>
+87
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ed_fi/client.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'lib/ed_fi/client.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='label'>as:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_profile'>profile</span> <span class='op'>=</span> <span class='id identifier rubyid_as'>as</span> <span class='kw'>if</span> <span class='id identifier rubyid_as'>as</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -1077,8 +1083,6 @@ year you&#39;d like to access, if given.</p>
       <pre class="lines">
 
 
-179
-180
 181
 182
 183
@@ -1086,10 +1090,12 @@ year you&#39;d like to access, if given.</p>
 185
 186
 187
-188</pre>
+188
+189
+190</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ed_fi/client.rb', line 179</span>
+      <pre class="code"><span class="info file"># File 'lib/ed_fi/client.rb', line 181</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_v2'>v2</span><span class='lparen'>(</span><span class='id identifier rubyid_period'>period</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_period'>period</span> <span class='op'>=</span> <span class='id identifier rubyid_period'>period</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
@@ -1184,15 +1190,15 @@ optional.</p>
       <pre class="lines">
 
 
-106
-107
 108
 109
 110
-111</pre>
+111
+112
+113</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ed_fi/client.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'lib/ed_fi/client.rb', line 108</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='label'>as:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_profile'>profile</span> <span class='op'>=</span> <span class='id identifier rubyid_as'>as</span> <span class='kw'>if</span> <span class='id identifier rubyid_as'>as</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -1210,9 +1216,9 @@ optional.</p>
 </div>
 
       <div id="footer">
-  Generated on Tue May 29 14:49:47 2018 by
+  Generated on Thu Jun 21 17:02:42 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.12 (ruby-2.5.1).
+  0.9.14 (ruby-2.5.1).
 </div>
 
     </div>

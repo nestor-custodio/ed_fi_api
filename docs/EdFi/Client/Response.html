@@ -6,7 +6,7 @@
 <title>
   Class: EdFi::Client::Response
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.14
   
 </title>
 
@@ -258,7 +258,6 @@ instances initialized from a Hash also allow for reference chaining.</p>
       <pre class="lines">
 
 
-17
 18
 19
 20
@@ -285,10 +284,11 @@ instances initialized from a Hash also allow for reference chaining.</p>
 41
 42
 43
-44</pre>
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/response.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/response.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='comma'>,</span> <span class='label'>client:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@client</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span>
@@ -346,7 +346,6 @@ instances initialized from a Hash also allow for reference chaining.</p>
       <pre class="lines">
 
 
-102
 103
 104
 105
@@ -373,10 +372,11 @@ instances initialized from a Hash also allow for reference chaining.</p>
 126
 127
 128
-129</pre>
+129
+130</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/response.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/response.rb', line 103</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='comment'>## Note references are cached.
@@ -389,7 +389,7 @@ instances initialized from a Hash also allow for reference chaining.</p>
 </span>    <span class='kw'>return</span> <span class='ivar'>@response</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='ivar'>@response</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span> <span class='id identifier rubyid_name'>name</span>
 
     <span class='comment'>## Allow for assignment to response values via dot notation.
-</span>    <span class='kw'>return</span> <span class='ivar'>@response</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:[]=</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>...</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_ends_with?'>ends_with?</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>=</span><span class='tstring_end'>&#39;</span></span>
+</span>    <span class='kw'>return</span> <span class='ivar'>@response</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:&#39;[]=&#39;</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>...</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_ends_with?'>ends_with?</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>=</span><span class='tstring_end'>&#39;</span></span>
 
     <span class='comment'>## Allow for simple access to referenced resources.
 </span>    <span class='kw'>if</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -445,7 +445,6 @@ instances initialized from a Hash also allow for reference chaining.</p>
       <pre class="lines">
 
 
-49
 50
 51
 52
@@ -456,10 +455,11 @@ instances initialized from a Hash also allow for reference chaining.</p>
 57
 58
 59
-60</pre>
+60
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/response.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'lib/ed_fi/client/response.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_client='>client=</span><span class='lparen'>(</span><span class='id identifier rubyid_client'>client</span><span class='rparen'>)</span>
   <span class='ivar'>@client</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span>
@@ -483,9 +483,9 @@ instances initialized from a Hash also allow for reference chaining.</p>
 </div>
 
       <div id="footer">
-  Generated on Tue May 29 14:49:47 2018 by
+  Generated on Thu Jun 21 17:02:43 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.12 (ruby-2.5.1).
+  0.9.14 (ruby-2.5.1).
 </div>
 
     </div>
