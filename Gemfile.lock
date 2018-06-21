@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ed_fi_client (0.1.0)
+    ed_fi_client (0.1.1)
       activesupport (~> 5.2.0)
       crapi (~> 0.1)
 
@@ -16,7 +16,7 @@ GEM
     byebug (10.0.2)
     coderay (1.1.2)
     concurrent-ruby (1.0.5)
-    crapi (0.1.2)
+    crapi (0.1.3)
       activesupport (~> 5.2.0)
     diff-lcs (1.3)
     i18n (1.0.1)
