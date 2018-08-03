@@ -79,8 +79,8 @@ class EdFi::Client < Crapi::Client
 
     ## @private
     ##
-    def as_json
-      eval(to_s).as_json
+    def as_json(*args)
+      eval(to_s).as_json(*args)
     end
     ## rubocop:enable Security/Eval
 
@@ -91,8 +91,8 @@ class EdFi::Client < Crapi::Client
 
     ## @private
     ##
-    def to_json
-      eval(to_s).to_json
+    def to_json(*args)
+      eval(to_s).to_json(*args)
     end
     ## rubocop:enable Security/Eval
 
