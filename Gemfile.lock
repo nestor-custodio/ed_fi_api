@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ed_fi_client (0.1.1)
+    ed_fi_client (0.1.2)
       activesupport (~> 5.2.0)
       crapi (~> 0.1)
 

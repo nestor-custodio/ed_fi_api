@@ -13,6 +13,6 @@ module EdFi
     ## This should only ever be updated *immediately* before a release; the commit that updates this
     ## value should be pushed **by** the `rake release` process.
     ##
-    VERSION = '0.1.1'.freeze
+    VERSION = '0.1.2'.freeze
   end
 end
